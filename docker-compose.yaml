@@ -1,0 +1,29 @@
+services:
+  web:
+    build: .
+    container_name: symfony_web
+    volumes:
+      - .:/var/www
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: mysql://isaac:isaac@12@db:3306/teste_docker?serverVersion=8.3&charset=utf8mb4
+    command: php -S 0.0.0.0:8000 -t public
+
+  db:
+    image: mysql:8.3
+    container_name: symfony_db
+    environment:
+      MYSQL_USER: isaac
+      MYSQL_PASSWORD: isaac@12
+      MYSQL_DATABASE: teste_docker
+      MYSQL_ROOT_PASSWORD: isaac@12
+    ports:
+      - "3309:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    tmpfs:
+        - /var/lib/mysql
+        
