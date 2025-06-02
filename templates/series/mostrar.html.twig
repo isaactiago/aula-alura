@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SeriesController!{% endblock %}
+
+{% block body %}
+
+
+  {% for temporada in teste %}
+    <ul>
+
+        <li> {{ temporada.numero }}   </li>
+    </ul>
+    {% endfor %}
+{% endblock %}

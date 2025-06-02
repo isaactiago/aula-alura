@@ -53,5 +53,18 @@ class SeriesRepository extends ServiceEntityRepository
         $this->getEntityManager()->remove($serie);
         $this->getEntityManager()->flush();
     }
+
+    public function buscarTemporadasEepsodiosPorSerie(){
+        
+        return $this->createQueryBuilder('s')
+            ->join('s.temporadas','t')
+            ->join('t.episodeos','e')
+            ->select('s.nome as serie,t.numero as temporada,e.numero as episodeos')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
+
 }
 

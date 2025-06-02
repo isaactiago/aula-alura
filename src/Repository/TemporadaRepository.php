@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Temporada;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Temporada>
@@ -40,4 +40,8 @@ class TemporadaRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+   /*  public function teste(){
+ 
+    } */
 }

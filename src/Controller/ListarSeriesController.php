@@ -6,7 +6,6 @@ use App\Repository\SeriesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Routing\Annotation\Route as AnnotationRoute;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route(path:self::ROUTE_PATH, name: 'app_series', methods:["GET"])]
