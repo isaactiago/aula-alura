@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    {% for valor in data%}
+        <h1>{{ valor.serie }}</h1>
+
+        <ul>
+            <p>{{ valor.temporadas }}</p>
+            <li>{{ valor.episodeos }}</li>
+        </ul>
+    {% endfor %}
+{% endblock %}

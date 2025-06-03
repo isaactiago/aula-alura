@@ -55,14 +55,14 @@ class SeriesRepository extends ServiceEntityRepository
     }
 
     public function buscarTemporadasEepsodiosPorSerie(){
-        
         return $this->createQueryBuilder('s')
-            ->join('s.temporadas','t')
-            ->join('t.episodeos','e')
-            ->select('s.nome as serie,t.numero as temporada,e.numero as episodeos')
+            ->innerJoin('s.temporadas','t')
+            ->innerJoin('t.episodeos','e')
+            ->select('s.nome as serie, t.numero as temporadas, e.numero as episodeos')
             ->getQuery()
             ->getResult()
         ;
+       
     }
     
 

@@ -34,7 +34,7 @@ class AdicionarController extends AbstractController
             return $this->render('series/form.html.twig',['form' => $input]);
         }
 
-        /* $serie = new Series($input->nomeSerie);
+        /*$serie = new Series($input->nomeSerie);
         for($i = 0; $i < $input->quantidadeDeTemporadas; $i++){
             
         }
