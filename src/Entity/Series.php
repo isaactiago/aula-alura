@@ -16,10 +16,7 @@ class Series
     #[ORM\Column]
     private int $id;
 
-    #[ORM\Column]
-    #[Assert\NotBlank]
-    #[Assert\Length(min:5)]
-    private string $nome;
+    
 
     /**
      * @var Collection<int, temporada>
@@ -28,6 +25,10 @@ class Series
     private Collection $temporadas;
 
     public function __construct(
+        #[ORM\Column]
+        #[Assert\NotBlank]
+        #[Assert\Length(min:5)]
+        private string $nome
     )
     {
         $this->temporadas = new ArrayCollection();
