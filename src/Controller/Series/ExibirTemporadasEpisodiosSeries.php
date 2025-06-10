@@ -9,13 +9,14 @@ use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\BuscarTemporadasEpisodiosSeriesService;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ExibirTemporadasEpisodiosSeries extends AbstractController
 {
     public function __construct(
         private SeriesRepository $seriesRepository,
-        private CacheInterface $cache
+        private  CacheItemPoolInterface $cache
     )
     {
     }

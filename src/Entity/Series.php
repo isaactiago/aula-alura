@@ -6,10 +6,11 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\SeriesRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use JsonSerializable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SeriesRepository::class)]
-class Series
+class Series implements JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,7 +20,7 @@ class Series
     /**
      * @var Collection<int, temporada>
      */
-    #[ORM\OneToMany(targetEntity: temporada::class, mappedBy: 'series', orphanRemoval: true,cascade:['persist'])]
+    #[ORM\OneToMany(targetEntity: Temporada::class, mappedBy: 'series', orphanRemoval: true, cascade:['persist','remove'])]
     private Collection $temporadas;
 
     public function __construct(
@@ -55,7 +56,7 @@ class Series
         return $this->temporadas;
     }
 
-    public function addTemporada(temporada $temporada): static
+    public function addTemporada(temporada $temporada): self
     {
         if (!$this->temporadas->contains($temporada)) {
             $this->temporadas->add($temporada);
@@ -65,15 +66,19 @@ class Series
         return $this;
     }
 
-    public function removeTemporada(temporada $temporada): static
+    public function removeTemporada(temporada $temporada): self
     {
-        if ($this->temporadas->removeElement($temporada)) {
-            // set the owning side to null (unless already changed)
-            if ($temporada->getSeries() === $this) {
-                $temporada->setSeries(null);
-            }
-        }
+        $this->temporadas->removeElement($temporada);
 
         return $this;
+    }
+
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'nome' => $this->nome,
+            'temporadas' => $this->temporadas,
+        ];
     }
 }

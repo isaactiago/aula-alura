@@ -6,29 +6,30 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TemporadaRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use JsonSerializable;
 
 #[ORM\Entity(repositoryClass: TemporadaRepository::class)]
-class Temporada
+class Temporada implements JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private int $id;
 
-    #[ORM\Column]
-    private int $numero;
-
     /**
      * @var Collection<int, episodio>
      */
-    #[ORM\OneToMany(targetEntity: episodio::class, mappedBy: 'temporada', orphanRemoval: true,cascade:['persist'])]
+    #[ORM\OneToMany(targetEntity: Episodio::class, mappedBy: 'temporada', orphanRemoval: true,cascade:['persist','remove'])]
     private Collection $episodeos;
 
     #[ORM\ManyToOne(inversedBy: 'temporadas')]
     #[ORM\JoinColumn(nullable: false)]
     private Series $series;
 
-    public function __construct()
+    public function __construct(
+        #[ORM\Column]
+        private int $numero,
+    )
     {
         $this->episodeos = new ArrayCollection();
     }
@@ -58,7 +59,7 @@ class Temporada
         return $this->episodeos;
     }
 
-    public function addEpisodeo(episodio $episodeo): static
+    public function addEpisodeo(episodio $episodeo): self
     {
         if (!$this->episodeos->contains($episodeo)) {
             $this->episodeos->add($episodeo);
@@ -68,15 +69,10 @@ class Temporada
         return $this;
     }
 
-    public function removeEpisodeo(episodio $episodeo): static
+    public function removeEpisodeo(episodio $episodeo): self
     {
-        if ($this->episodeos->removeElement($episodeo)) {
-            // set the owning side to null (unless already changed)
-            if ($episodeo->getTemporada() === $this) {
-                $episodeo->setTemporada(null);
-            }
-        }
-
+        $this->episodeos->removeElement($episodeo);
+        
         return $this;
     }
 
@@ -90,5 +86,13 @@ class Temporada
         $this->series = $series;
 
         return $this;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'temporadas' => $this->numero,
+            'episodios' => $this->episodeos
+        ];
     }
 }

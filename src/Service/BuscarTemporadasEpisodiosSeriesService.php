@@ -11,7 +11,6 @@ class BuscarTemporadasEpisodiosSeriesService
     public function __construct(
         private SeriesRepository $seriesRepository,
         private CacheItemPoolInterface $cache,
-        
     )
     {
     }
