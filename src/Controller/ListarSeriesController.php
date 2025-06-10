@@ -8,10 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route(path:self::ROUTE_PATH, name: 'app_series', methods:["GET"])]
+#[Route(path:'/series', name: 'app_series', methods:["GET"])]
 class ListarSeriesController extends AbstractController 
 {
-    public const ROUTE_PATH = "/series";
 
     public function __construct(
         public readonly SeriesRepository $series

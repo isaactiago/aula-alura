@@ -5,12 +5,9 @@ namespace App\DTO;
 class CriarSerieDTO
 {
     public function __construct(
-        private string $nome
+        public readonly string $nome,
+        public readonly int $temporada,
+        public readonly int $episodios
     ){
-    }
-
-    public function getNome(): string 
-    {
-        return $this->nome;
     }
 }

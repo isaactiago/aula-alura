@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Series;
 use App\Form\SeriesForm;
 use App\DTO\SeriesCriadasParaInputDTO;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +13,6 @@ class ShowFormularioController extends AbstractController
 {
     public function __invoke(): Response
     {
-
         $form = $this->createForm(SeriesForm::class,new SeriesCriadasParaInputDTO(),[
             'action' => $this->generateUrl('add'),
             'method' => 'POST'

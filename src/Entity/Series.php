@@ -16,12 +16,10 @@ class Series
     #[ORM\Column]
     private int $id;
 
-    
-
     /**
      * @var Collection<int, temporada>
      */
-    #[ORM\OneToMany(targetEntity: temporada::class, mappedBy: 'series', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: temporada::class, mappedBy: 'series', orphanRemoval: true,cascade:['persist'])]
     private Collection $temporadas;
 
     public function __construct(

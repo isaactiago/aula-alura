@@ -21,7 +21,7 @@ class Temporada
     /**
      * @var Collection<int, episodio>
      */
-    #[ORM\OneToMany(targetEntity: episodio::class, mappedBy: 'temporada', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: episodio::class, mappedBy: 'temporada', orphanRemoval: true,cascade:['persist'])]
     private Collection $episodeos;
 
     #[ORM\ManyToOne(inversedBy: 'temporadas')]
